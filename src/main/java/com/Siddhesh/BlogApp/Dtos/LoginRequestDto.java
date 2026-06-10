@@ -1,11 +1,17 @@
 package com.Siddhesh.BlogApp.Dtos;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequestDto {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 }
 

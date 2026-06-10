@@ -1,14 +1,18 @@
 package com.Siddhesh.BlogApp.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
-@Table(name = "Comments")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Blogs")
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +27,10 @@ public class Blog {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "blog")
+    @JsonIgnore
     List<Like> likes;
 
     @OneToMany(mappedBy = "blog")
+    @JsonIgnore
     List<Comment> comments;
 }

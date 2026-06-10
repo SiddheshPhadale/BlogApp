@@ -1,12 +1,15 @@
 package com.Siddhesh.BlogApp.Entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "comments")
 public class Comment {
     @Id

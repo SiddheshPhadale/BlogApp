@@ -1,6 +1,5 @@
 package com.Siddhesh.BlogApp.Dtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -8,11 +7,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignupRequestDto {
+public class BlogRequestDto {
     @NotBlank
-    private String username;
+    private String title;
     @NotBlank
-    private String password;
-    @Email
-    private String email;
+    private String content;
 }
