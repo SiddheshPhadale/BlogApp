@@ -24,18 +24,19 @@ public class LoginService {
 
     private final AuthenticationManager authenticationManager;
 
-    public HttpStatus login(LoginRequestDto loginRequestDto){
-        try {
-            authenticationManager.authenticate(
+    private final JwtService jwtService;
+
+    public String login(LoginRequestDto loginRequestDto){
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequestDto.getUsername(),
                             loginRequestDto.getPassword()
                     )
             );
-            return HttpStatus.OK;
-        } catch (RuntimeException e) {
-            return HttpStatus.UNAUTHORIZED;
-        }
+
+            if(authentication.isAuthenticated()) return jwtService.generateToken(loginRequestDto.getUsername());
+
+            throw new RuntimeException("Invalid Credentials");
     }
 
     @Transactional

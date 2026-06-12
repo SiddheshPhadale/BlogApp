@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface BlogRepo extends JpaRepository<Blog, Long> {
 
     Optional<List<Blog>> getBlogByTitle(String blogTitle);
+    List<Blog> findTop20ByOrderByCreatedAtDesc();
 }

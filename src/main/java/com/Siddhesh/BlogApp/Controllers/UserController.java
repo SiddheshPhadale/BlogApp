@@ -22,6 +22,12 @@ public class UserController {
 
     private final UserService service;
 
+    @GetMapping("/home")
+    public ResponseEntity<List<BlogResponseDto>> home(){
+        List<BlogResponseDto> response = service.home();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @DeleteMapping("/blog/{blogId}/delete")
     public ResponseEntity<HttpStatus> deleteBlog(@PathVariable Long blogId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

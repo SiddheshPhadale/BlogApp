@@ -19,8 +19,8 @@ public class LoginController {
     private final LoginService service;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> login(@RequestBody @Validated LoginRequestDto loginRequestDto){
-        return new ResponseEntity<>(service.login(loginRequestDto));
+    public ResponseEntity<String> login(@RequestBody @Validated LoginRequestDto loginRequestDto){
+        return new ResponseEntity<>(service.login(loginRequestDto), HttpStatus.OK);
     }
 
     @PostMapping("/signup")

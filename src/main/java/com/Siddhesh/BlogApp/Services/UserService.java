@@ -16,7 +16,6 @@ import com.Siddhesh.BlogApp.Repositories.LikeRepo;
 import com.Siddhesh.BlogApp.Repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -131,6 +130,20 @@ public class UserService {
 
         blogRepo.deleteById(blogId);
         return HttpStatus.OK;
+    }
+
+    public List<BlogResponseDto> home(){
+        List<Blog> blogs = blogRepo.findTop20ByOrderByCreatedAtDesc();
+
+        return blogs.stream().map(
+                blog -> new BlogResponseDto(
+                        blog.getTitle(),
+                        blog.getAuthor().getUsername(),
+                        blog.getContent(),
+                        blog.getLikes().size(),
+                        blog.getComments().size()
+                )
+        ).toList();
     }
 }
 

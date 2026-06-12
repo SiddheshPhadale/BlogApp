@@ -26,11 +26,19 @@ public class Blog {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(
+            mappedBy = "blog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     List<Like> likes;
 
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(
+            mappedBy = "blog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     List<Comment> comments;
 }
