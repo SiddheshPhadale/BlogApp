@@ -1,0 +1,9 @@
+{
+  "name": "blog-frontend",
+  "version": "1.0.0",
+  "description": "High-fidelity vanilla JS glassmorphic frontend for BlogApp",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000"
+  }
+}

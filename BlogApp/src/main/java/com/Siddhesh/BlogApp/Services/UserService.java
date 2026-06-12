@@ -4,6 +4,7 @@ import com.Siddhesh.BlogApp.Dtos.BlogRequestDto;
 import com.Siddhesh.BlogApp.Dtos.BlogResponseDto;
 import com.Siddhesh.BlogApp.Dtos.CommentRequestDto;
 import com.Siddhesh.BlogApp.Dtos.CommentResponseDto;
+import com.Siddhesh.BlogApp.Dtos.CommentDetailDto;
 import com.Siddhesh.BlogApp.Entities.Blog;
 import com.Siddhesh.BlogApp.Entities.Comment;
 import com.Siddhesh.BlogApp.Entities.Like;
@@ -45,28 +46,14 @@ public class UserService {
 
             Blog savedBlog = blogRepo.save(blog);
 
-            return new BlogResponseDto(
-                    savedBlog.getTitle(),
-                    savedBlog.getAuthor().getUsername(),
-                    savedBlog.getContent(),
-                    0,
-                    0
-            );
+            return mapToResponseDto(savedBlog);
         }
         else throw new UserNotFoundException("User with username : " + username + " not found");
     }
 
     public List<BlogResponseDto> getBlogByName(String blogTitle) {
         List<Blog> blogsFound = blogRepo.getBlogByTitle(blogTitle).orElseThrow();
-        List<BlogResponseDto> response = blogsFound.stream().map(
-                blog -> new BlogResponseDto(
-                        blog.getTitle(),
-                        blog.getAuthor().getUsername(),
-                        blog.getContent(),
-                        blog.getLikes().size(),
-                        blog.getComments().size()
-                )
-        ).toList();
+        List<BlogResponseDto> response = blogsFound.stream().map(this::mapToResponseDto).toList();
 
         return response;
     }
@@ -94,15 +81,7 @@ public class UserService {
         User user = userRepo.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User Not found"));
         List<Blog> blogs = user.getBlogs();
 
-        return blogs.stream().map(
-                blog -> new BlogResponseDto(
-                        blog.getTitle(),
-                        blog.getAuthor().getUsername(),
-                        blog.getContent(),
-                        blog.getLikes().size(),
-                        blog.getComments().size()
-                )
-        ).toList();
+        return blogs.stream().map(this::mapToResponseDto).toList();
     }
 
     @Transactional
@@ -135,15 +114,46 @@ public class UserService {
     public List<BlogResponseDto> home(){
         List<Blog> blogs = blogRepo.findTop20ByOrderByCreatedAtDesc();
 
-        return blogs.stream().map(
-                blog -> new BlogResponseDto(
-                        blog.getTitle(),
-                        blog.getAuthor().getUsername(),
-                        blog.getContent(),
-                        blog.getLikes().size(),
-                        blog.getComments().size()
-                )
-        ).toList();
+        return blogs.stream().map(this::mapToResponseDto).toList();
+    }
+
+    private BlogResponseDto mapToResponseDto(Blog blog) {
+        List<CommentDetailDto> commentDtos = blog.getComments() != null ? 
+            blog.getComments().stream().map(c -> new CommentDetailDto(
+                c.getId(), 
+                c.getContent(), 
+                c.getUser() != null ? c.getUser().getUsername() : "Unknown", 
+                c.getCreatedAt()
+            )).toList() : java.util.Collections.emptyList();
+
+        String currentUsername = null;
+        try {
+            org.springframework.security.core.Authentication auth = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
+                currentUsername = auth.getName();
+            }
+        } catch (Exception e) {
+            throw new UserNotFoundException("User was not found or is anonymous!");
+        }
+
+        boolean likedByCurrentUser = false;
+        if (currentUsername != null && blog.getLikes() != null) {
+            final String finalUsername = currentUsername;
+            likedByCurrentUser = blog.getLikes().stream().anyMatch(
+                like -> like.getUserWhoLiked() != null && finalUsername.equals(like.getUserWhoLiked().getUsername())
+            );
+        }
+
+        return new BlogResponseDto(
+                blog.getId(),
+                blog.getTitle(),
+                blog.getAuthor() != null ? blog.getAuthor().getUsername() : "Unknown",
+                blog.getContent(),
+                blog.getLikes() != null ? blog.getLikes().size() : 0,
+                blog.getComments() != null ? blog.getComments().size() : 0,
+                commentDtos,
+                likedByCurrentUser
+        );
     }
 }
 

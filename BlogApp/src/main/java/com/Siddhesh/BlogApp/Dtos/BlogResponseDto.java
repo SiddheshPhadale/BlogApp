@@ -14,9 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlogResponseDto {
+    private Long id;
     private String title;
     private String username;
     private String content;
     private int likeCount;
     private int commentCount;
+    private List<CommentDetailDto> comments;
+    private boolean likedByCurrentUser;
 }

@@ -1,34 +1,19 @@
-application.yaml
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
+# IDEs and Editors
+.idea/
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
 .vscode/
+
+# Backend (Maven/Spring Boot)
+BlogApp/target/
+BlogApp/.mvn/wrapper/maven-wrapper.jar
+!**/BlogApp/src/main/**/target/
+!**/BlogApp/src/test/**/target/
+BlogApp/src/main/resources/application.yaml
+
+# Frontend (Node/React/Vanilla JS)
+frontend/node_modules/
+frontend/dist/
+frontend/.env*
+frontend/.env
