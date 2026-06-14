@@ -10,7 +10,7 @@ BlogApp/target/
 BlogApp/.mvn/wrapper/maven-wrapper.jar
 !**/BlogApp/src/main/**/target/
 !**/BlogApp/src/test/**/target/
-BlogApp/src/main/resources/application.yaml
+BlogApp/.env
 
 # Frontend (Node/React/Vanilla JS)
 frontend/node_modules/

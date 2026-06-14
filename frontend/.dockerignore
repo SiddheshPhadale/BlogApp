@@ -1,0 +1,8 @@
+node_modules/
+Dockerfile
+nginx.conf
+.dockerignore
+.git/
+.idea/
+.gitignore
+package-lock.json
