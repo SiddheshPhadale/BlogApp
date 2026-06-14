@@ -1,6 +1,5 @@
 node_modules/
 Dockerfile
-nginx.conf
 .dockerignore
 .git/
 .idea/
