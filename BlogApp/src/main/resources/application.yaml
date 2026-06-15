@@ -3,7 +3,7 @@ spring:
     name: BlogApp
 
   datasource:
-    url: jdbc:postgresql://gTYRzIaKrPvmNEFWhZnSDUqRvPVZeQIf@postgres.railway.internal:5432/railway
+    url: jdbc:postgresql://postgres.railway.internal:5432/railway
     username: postgres
     password: gTYRzIaKrPvmNEFWhZnSDUqRvPVZeQIf
     driver-class-name: org.postgresql.Driver
