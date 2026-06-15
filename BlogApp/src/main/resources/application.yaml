@@ -3,9 +3,9 @@ spring:
     name: BlogApp
 
   datasource:
-    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:blogdb}
-    username: ${PGUSER:postgres}
-    password: ${PGPASSWORD:root}
+    url: jdbc:postgresql://gTYRzIaKrPvmNEFWhZnSDUqRvPVZeQIf@postgres.railway.internal:5432/railway
+    username: postgres
+    password: gTYRzIaKrPvmNEFWhZnSDUqRvPVZeQIf
     driver-class-name: org.postgresql.Driver
 
   jpa:
