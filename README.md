@@ -1,4 +1,4 @@
-**BlogApp**
+# BlogApp
 
 A full-stack blogging platform that enables users to create, manage, and interact with blog posts through a secure JWT-based authentication system. The application consists of a Spring Boot backend exposing REST APIs and a modern frontend consuming those APIs.
 
