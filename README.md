@@ -60,7 +60,7 @@ PostgreSQL Database
 * Notifications
 
 
-
+# Images
 
 <img width="1481" height="809" alt="image" src="https://github.com/user-attachments/assets/2c05f3c6-647e-4b3b-bc0a-376c48e3150a" />
 
